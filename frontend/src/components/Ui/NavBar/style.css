@@ -1,0 +1,43 @@
+.Logo {
+  font-family: 'Hubot-Sans', sans-serif;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.04s ease-in-out;
+  font-weight: 700;
+}
+.Logo:hover {
+  opacity: 1;
+  text-shadow: 0 2px 16px rgba(174, 207, 242, 0.6);
+  width: fit-content;
+}
+
+.Flip {
+  font-family: 'Hubot-Sans', sans-serif;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  padding: 0;
+  transition: transform 0.3s;
+  transform-origin: 50% 0;
+  transform-style: preserve-3d;
+  opacity: 0.5;
+}
+.Flip:before {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: 'About';
+  transition: color 0.3s;
+  transform: rotateX(-90deg);
+  transform-origin: 50% 0;
+  text-align: center;
+}
+
+.Flip:hover,
+.Flip:focus {
+  transform: rotateX(90deg) translateY(-22px);
+  opacity: 1;
+  text-shadow: 0 2px 16px rgba(174, 207, 242, 0.6);
+}
