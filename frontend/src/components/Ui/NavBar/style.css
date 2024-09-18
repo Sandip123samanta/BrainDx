@@ -4,6 +4,7 @@
   cursor: pointer;
   transition: opacity 0.04s ease-in-out;
   font-weight: 700;
+  font-size: 1.5em;
 }
 .Logo:hover {
   opacity: 1;
@@ -21,6 +22,7 @@
   transform-origin: 50% 0;
   transform-style: preserve-3d;
   opacity: 0.5;
+  font-size: 1.5em;
 }
 .Flip:before {
   position: absolute;
@@ -40,4 +42,15 @@
   transform: rotateX(90deg) translateY(-22px);
   opacity: 1;
   text-shadow: 0 2px 16px rgba(174, 207, 242, 0.6);
+}
+
+@media screen and (min-width: 765px) {
+  .Logo {
+    font-weight: 700;
+    font-size: 1em;
+  }
+  .Flip {
+    font-weight: 700;
+    font-size: 1em;
+  }
 }

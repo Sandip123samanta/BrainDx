@@ -1,5 +1,10 @@
 .spot-container {
-  padding-top: 3em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  padding-top: 20px;
 }
 
 .mid-spot {
@@ -112,7 +117,7 @@
 
 @media screen and (min-width: 765px) {
   .spot-container {
-    padding-top: 2em;
+    /* padding-top: 2em; */
   }
 
   .mid-spot {

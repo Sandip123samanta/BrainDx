@@ -1,5 +1,5 @@
 .textFollow p {
-  font-size: 1em;
+  font-size: 2em;
   position: relative;
   width: fit-content;
   margin: auto;
@@ -39,4 +39,10 @@
   background: linear-gradient(90deg, #9dc3f7 0%, transparent 100%);
   left: 40%;
   translate: 5em 0;
+}
+
+@media screen and (min-width: 765px) {
+  .textFollow p {
+    font-size: 1em;
+  }
 }
