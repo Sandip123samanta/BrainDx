@@ -3,7 +3,7 @@ import os
 from fastapi import FastAPI, File, UploadFile
 import uvicorn
 import tensorflow as tf
-from model.model import Crop_Image
+from app.model.model import Crop_Image
 
 app = FastAPI()
 
@@ -32,5 +32,5 @@ async def predict(
     return {"prediction": prediction}
 
 
-if __name__ == "__main__":
-    uvicorn.run(app,host="localhost",port=8000)
+# if __name__ == "__main__":
+#     uvicorn.run(app,host="localhost",port=8000)
