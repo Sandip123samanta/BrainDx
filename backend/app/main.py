@@ -1,13 +1,11 @@
 import numpy as np
-import os
 from fastapi import FastAPI, File, UploadFile
-import uvicorn
 import tensorflow as tf
 from app.model.model import Crop_Image
 
 app = FastAPI()
 
-MODEL = tf.keras.models.load_model(os.path.abspath("./app/model/Vgg16.keras"))
+MODEL = tf.keras.models.load_model("./app/model/Vgg16.keras")
 
 @app.get("/")
 def Ping():
@@ -30,7 +28,3 @@ async def predict(
     prediction = round(prediction[0][0]*100)
 
     return {"prediction": prediction}
-
-
-# if __name__ == "__main__":
-#     uvicorn.run(app,host="localhost",port=8000)
