@@ -15,7 +15,7 @@ function HeroContent() {
           <HeroText Text={'BrainDx'} />
         </div>
         <div className="md:pt-[10em] pt-[12em]">
-          <p class="heroP">
+          <p className="heroP">
             A Brain Tumor Detector
             <br />
             powered by CNN, FastApi & React.
@@ -25,7 +25,7 @@ function HeroContent() {
           <Button />
         </div>
       </div>
-      <div class="mountains">
+      <div className="mountains">
         <div></div>
         <div></div>
         <div></div>

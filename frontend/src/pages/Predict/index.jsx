@@ -13,21 +13,35 @@ function Predict() {
     const formData = new FormData();
     formData.append('file', file);
 
-    const response = await fetch('https://braindx.onrender.com/predict', {
-      method: 'POST',
-      body: formData,
-    });
+    try {
+      const response = await fetch('https://braindx.onrender.com/predict', {
+        method: 'POST',
+        body: formData,
+      });
 
-    const data = await response.json();
-    setExplanation(data.prediction); // Update this line
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      setExplanation(data.prediction);
+    } catch (error) {
+      console.error('Error:', error);
+      alert('There was an error with your request: ' + error.message);
+    }
   };
 
   return (
-    <div className="App">
+    <div className="App text-white mt-28">
       <h1>Upload MRI Image</h1>
       <form onSubmit={handleSubmit}>
         <input type="file" onChange={handleFileChange} />
-        <button type="submit">Get Explanation</button>
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Get Explanation
+        </button>
       </form>
 
       {explanation && (
