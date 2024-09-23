@@ -6,6 +6,7 @@ from app.middleware.cors_middleware import add_cors_middleware
 from app.explainer.lime_explainer import explain_instance
 import os
 from fastapi.responses import FileResponse
+import logging
 
 
 app = FastAPI()
@@ -18,25 +19,21 @@ MODEL = tf.keras.models.load_model("./app/model/Vgg16.keras")
 def Ping():
     return "Hello, I am alive"
 
+logging.basicConfig(level=logging.INFO)
+
 @app.post("/predict")
-async def predict(
-    file: UploadFile = File(...)
-):
-    file_data = await file.read()
-    
-    # Call Crop_Image without await since it's not an async function
-    image = Crop_Image(file_data)
-    
-    # Prepare the image for prediction
-    img_batch = np.expand_dims(image, 0)
-    
-    # Make prediction
-    prediction = MODEL.predict(img_batch)
-    prediction = round(prediction[0][0]*100)
-
-    explanation = explain_instance(img_batch,MODEL)
-
-    return {"prediction": prediction, "explanation": explanation}
+async def predict(file: UploadFile = File(...)):
+    try:
+        file_data = await file.read()
+        image = Crop_Image(file_data)
+        img_batch = np.expand_dims(image, 0)
+        prediction = MODEL.predict(img_batch)
+        prediction = round(prediction[0][0] * 100)
+        explanation = explain_instance(img_batch, MODEL)
+        return {"prediction": prediction, "explanation": explanation}
+    except Exception as e:
+        logging.error(f"Error in predict endpoint: {str(e)}")
+        return {"error": str(e)}
 
 @app.get("/tmp/{filename}")
 async def get_image(filename: str):
