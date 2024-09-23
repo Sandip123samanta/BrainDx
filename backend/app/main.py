@@ -2,8 +2,15 @@ import numpy as np
 from fastapi import FastAPI, File, UploadFile
 import tensorflow as tf
 from app.model.model import Crop_Image
+from app.middleware.cors_middleware import add_cors_middleware
+from app.explainer.lime_explainer import explain_instance
+import os
+from fastapi.responses import FileResponse
+
 
 app = FastAPI()
+
+add_cors_middleware(app)
 
 MODEL = tf.keras.models.load_model("./app/model/Vgg16.keras")
 
@@ -27,4 +34,13 @@ async def predict(
     prediction = MODEL.predict(img_batch)
     prediction = round(prediction[0][0]*100)
 
-    return {"prediction": prediction}
+    explanation = explain_instance(img_batch,MODEL)
+
+    return {"prediction": prediction, "explanation": explanation}
+
+@app.get("/tmp/{filename}")
+async def get_image(filename: str):
+    file_path = os.path.join("tmp", filename)
+    if os.path.exists(file_path):
+        return FileResponse(file_path)
+    return {"error": "File not found"}

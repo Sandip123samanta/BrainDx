@@ -5,3 +5,4 @@ uvicorn
 opencv-python
 python-multipart
 tensorflow==2.17.0
+lime==0.2.0.1
