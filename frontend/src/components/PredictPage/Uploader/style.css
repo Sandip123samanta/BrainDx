@@ -1,0 +1,29 @@
+.upload-container {
+  font-family: 'Hubot-Sans', sans-serif;
+  margin-top: 10em;
+  min-height: calc(100vh - 10em);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  animation: load 2s forwards;
+}
+
+.upload-text {
+  font-size: 2em;
+  font-family: 'Hubot-Sans', sans-serif;
+  text-align: center;
+  opacity: 1;
+  color: #d8ecf8;
+  text-shadow: 0 2px 16px rgba(174, 207, 242, 0.24);
+  background: linear-gradient(0deg, #d8ecf8 0, #98c0ef 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media screen and (min-width: 765px) {
+  .upload-container {
+    margin-top: 6em;
+    min-height: calc(100vh - 6em);
+  }
+}

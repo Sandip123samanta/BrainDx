@@ -1,13 +1,15 @@
 import React from 'react';
-import './style.css';
 import { Link, NavLink } from 'react-router-dom';
+import { BsGithub } from 'react-icons/bs';
+import './style.css';
 
-function NavBar() {
+function Footer() {
   return (
-    <nav className="text-white fixed top-0 left-0 w-full h-[6em] flex items-center justify-around z-10 pointer-events-none">
+    <div className="text-white w-full h-[4em] flex items-center justify-around z-10 pointer-events-none relative">
+      <div className="top-line" />
       <div className="pointer-events-auto">
         <NavLink to="/">
-          <div className="Logo flex gap-2 items-center justify-center">
+          <div className="footer-text flex gap-2 items-center justify-center">
             <svg
               version="1.0"
               className="w-5 h-6"
@@ -32,12 +34,12 @@ function NavBar() {
         </NavLink>
       </div>
       <div className="pointer-events-auto">
-        <NavLink to="/about">
-          <h2 className="Flip">About</h2>
-        </NavLink>
+        <Link to="https://github.com/Sandip123samanta/BrainDx">
+          <BsGithub size={20} color="rgba(255,255,255,0.4)" />
+        </Link>
       </div>
-    </nav>
+    </div>
   );
 }
 
-export default NavBar;
+export default Footer;

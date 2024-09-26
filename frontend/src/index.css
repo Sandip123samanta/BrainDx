@@ -36,6 +36,11 @@ body {
   font-size: max(calc(var(--_size) * 0.03), 10px);
   --_factor: min(600px, 80vh);
   --_size: min(var(--_factor), 80vw);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+body::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes load {

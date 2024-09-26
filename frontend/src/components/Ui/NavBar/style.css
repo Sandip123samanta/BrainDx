@@ -4,7 +4,6 @@
   cursor: pointer;
   transition: opacity 0.04s ease-in-out;
   font-weight: 700;
-  font-size: 1.5em;
 }
 .Logo:hover {
   opacity: 1;
