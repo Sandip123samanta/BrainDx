@@ -10,12 +10,12 @@ function Uploader() {
   const [filePreview, setFilePreview] = useState(null);
   const [explanation, setExplanation] = useState('');
   const [dragging, setDragging] = useState(false);
-  const fileInputRef = useRef(null); // Reference to the hidden input element
+  const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
-    setFilePreview(URL.createObjectURL(selectedFile)); // Set the preview of the file
+    setFilePreview(URL.createObjectURL(selectedFile));
     console.log('File selected:', selectedFile);
   };
 
@@ -35,7 +35,7 @@ function Uploader() {
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       const droppedFile = e.dataTransfer.files[0];
       setFile(droppedFile);
-      setFilePreview(URL.createObjectURL(droppedFile)); // Set the preview of the file
+      setFilePreview(URL.createObjectURL(droppedFile));
       e.dataTransfer.clearData();
       console.log('File dropped:', droppedFile);
     }
@@ -88,13 +88,12 @@ function Uploader() {
           <br />
           Accurate Results
         </h1>
-        <p className="text-[#d8ecf8be] mt-2 text-[1em] leading-4 mb-5">
+        <p className="text-[#d8ecf8be] mt-4 text-[1em] leading-4 mb-5">
           Please upload a DICOM file of your MRI scan. Our AI will analyze it
           and provide a prediction upon it.
         </p>
       </div>
 
-      {/* Drag-and-Drop Area */}
       <div
         className={`w-[30em] h-[20em] border-[2px] border-dashed rounded-sm cursor-pointer flex items-center justify-center hover:border-blue-500 hover:bg-gray-900 ${
           dragging ? 'border-blue-500 bg-gray-900' : 'border-[#d8ecf8be]'
@@ -102,7 +101,7 @@ function Uploader() {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        onClick={handleClick} // Make the area clickable
+        onClick={handleClick}
       >
         {filePreview ? (
           <img
@@ -120,12 +119,11 @@ function Uploader() {
           type="file"
           accept="image/*"
           onChange={handleFileChange}
-          ref={fileInputRef} // Reference to the hidden input
-          style={{ display: 'none' }} // Hide input but still trigger it on click
+          ref={fileInputRef}
+          style={{ display: 'none' }}
         />
       </div>
 
-      {/* File Information and Delete Button */}
       {file && (
         <div className="w-[30em] flex justify-between items-center p-3 mt-4 text-left border border-white rounded-md hover:bg-gray-900">
           <div className="flex h-full w-auto items-center gap-4">
@@ -143,7 +141,6 @@ function Uploader() {
         </div>
       )}
 
-      {/* Submit Button */}
       {file && (
         <button
           type="submit"
@@ -154,7 +151,6 @@ function Uploader() {
         </button>
       )}
 
-      {/* Model Explanation */}
       {explanation && (
         <div className="mt-5">
           <h2 className="text-white font-bold">Prediction: {explanation}</h2>
