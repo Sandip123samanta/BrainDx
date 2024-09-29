@@ -29,7 +29,7 @@ async def predict(file: UploadFile = File(...)):
         img_batch = np.expand_dims(image, 0)
         prediction = MODEL.predict(img_batch)
         prediction = round(prediction[0][0] * 100)
-        explanation = explain_instance(img_batch, MODEL, num_samples=200)
+        explanation = explain_instance(img_batch, MODEL, num_samples=100)
         return {"prediction": prediction, "explanation": explanation}
     except Exception as e:
         logging.error(f"Error in predict endpoint: {str(e)}")
