@@ -6,7 +6,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from skimage.segmentation import mark_boundaries
 
-def explain_instance(image, MODEL):
+def explain_instance(image, MODEL, num_samples=100):
     import os
     os.makedirs('./tmp', exist_ok=True)  # Create tmp directory if it doesn't exist
 
@@ -16,7 +16,7 @@ def explain_instance(image, MODEL):
         return MODEL.predict(image)
     
     explanation = explainer.explain_instance(
-        image[0], predict_fn, top_labels=1, hide_color=0, num_samples=500
+        image[0], predict_fn, top_labels=1, hide_color=0, num_samples=num_samples
     )
 
     temp, mask = explanation.get_image_and_mask(
