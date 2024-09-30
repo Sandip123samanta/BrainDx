@@ -23,18 +23,17 @@ logging.basicConfig(level=logging.INFO)
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
-    # try:
-    #     file_data = await file.read()
-    #     image = Crop_Image(file_data)
-    #     img_batch = np.expand_dims(image, 0)
-    #     prediction = MODEL.predict(img_batch)
-    #     prediction = round(prediction[0][0] * 100)
-    #     explanation = explain_instance(img_batch, MODEL, num_samples=100)
-    #     return {"prediction": prediction, "explanation": explanation}
-    # except Exception as e:
-    #     logging.error(f"Error in predict endpoint: {str(e)}")
-    #     return {"error": str(e)}
-    return {"Prediction": "working"}
+    try:
+        file_data = await file.read()
+        image = Crop_Image(file_data)
+        img_batch = np.expand_dims(image, 0)
+        prediction = MODEL.predict(img_batch)
+        prediction = round(prediction[0][0] * 100)
+        # explanation = explain_instance(img_batch, MODEL, num_samples=100)
+        return {"prediction": prediction, "explanation": "explanation"}
+    except Exception as e:
+        logging.error(f"Error in predict endpoint: {str(e)}")
+        return {"error": str(e)}
 
 @app.get("/tmp/{filename}")
 async def get_image(filename: str):
