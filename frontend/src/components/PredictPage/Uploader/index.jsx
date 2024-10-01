@@ -3,6 +3,7 @@ import { LuUploadCloud } from 'react-icons/lu';
 import { FaFileImage } from 'react-icons/fa';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import TextFollow from '../../Ui/TextFollow';
+import axios from 'axios'; // Import Axios
 import './style.css';
 
 function Uploader() {
@@ -59,16 +60,17 @@ function Uploader() {
     formData.append('file', file);
 
     try {
-      const response = await fetch('https://braindx.onrender.com/predict', {
-        method: 'POST',
-        body: formData,
-      });
+      const response = await axios.post(
+        'https://braindx.onrender.com/predict',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
+      const data = response.data;
       setExplanation(data.prediction);
       console.log('Upload completed');
     } catch (error) {
