@@ -116,10 +116,6 @@
 }
 
 @media screen and (min-width: 765px) {
-  .spot-container {
-    /* padding-top: 2em; */
-  }
-
   .mid-spot {
     width: 1.8em;
     height: 1.8em;

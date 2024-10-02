@@ -6,15 +6,15 @@ import Button from '../../Ui/Button';
 
 function HeroContent() {
   return (
-    <div className="w-full h-[100vh] overflow-y-hidden">
+    <div className="w-full h-[100vh] overflow-y-clip relative">
       <div className="w-full h-full md:pt-[13em] pt-[16.5em]">
-        <div className="clas">
+        <div className="clas mt-2 md:mt-0">
           <TextFollow Text={'Introducing'} />
         </div>
         <div className="md:pt-3 pt-7">
           <HeroText Text={'BrainDx'} />
         </div>
-        <div className="md:pt-[10em] pt-[12em]">
+        <div className="md:pt-[10em] pt-[12em] z-10">
           <p className="heroP">
             A Brain Tumor Detector
             <br />
@@ -22,7 +22,7 @@ function HeroContent() {
           </p>
         </div>
         <div className="relative text-center md:mt-20 mt-20 z-10">
-          <Button />
+          <Button btnFor={'Predict'} btnTo={'/predict'} />
         </div>
       </div>
       <div className="mountains">

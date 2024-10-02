@@ -7,6 +7,7 @@ import Footer from './components/Ui/Footer/Footer';
 import Lenis from 'lenis';
 import { useEffect } from 'react';
 import 'lenis/dist/lenis.css';
+import StarCanvas from './components/HeroSection/StarCanvas';
 
 function App() {
   useEffect(() => {
@@ -26,6 +27,7 @@ function App() {
   return (
     <Router>
       <NavBar />
+      <StarCanvas />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

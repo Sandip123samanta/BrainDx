@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style.css';
 import { Link, NavLink } from 'react-router-dom';
 
 function NavBar() {
+  const [navbarState, setNavbarState] = useState(false);
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY >= 96) setNavbarState(true);
+    else setNavbarState(false);
+  });
+
   return (
-    <nav className="text-white fixed top-0 left-0 w-full h-[6em] flex items-center justify-around z-10 pointer-events-none">
+    <nav
+      className={` ${
+        navbarState ? 'navbar active' : 'navbar'
+      } text-white fixed top-0 left-0 w-full h-[4em] flex items-center justify-between md:px-0 px-7 md:justify-around z-10 pointer-events-none`}
+    >
       <div className="pointer-events-auto">
         <NavLink to="/">
           <div className="Logo flex gap-2 items-center justify-center">
@@ -27,7 +38,7 @@ function NavBar() {
                 />
               </g>
             </svg>
-            BrainDx
+            <h1 className="md:text-[1em] text-[1.5em]">BrainDx</h1>
           </div>
         </NavLink>
       </div>

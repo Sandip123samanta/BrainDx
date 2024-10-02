@@ -61,7 +61,7 @@ function Uploader() {
 
     try {
       const response = await axios.post(
-        'https://braindx.onrender.com/predict',
+        import.meta.env.VITE_API_URL,
         formData,
         {
           headers: {

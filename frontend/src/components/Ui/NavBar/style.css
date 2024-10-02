@@ -1,8 +1,9 @@
+/* Logo Styling */
 .Logo {
   font-family: 'Hubot-Sans', sans-serif;
   opacity: 0.5;
   cursor: pointer;
-  transition: opacity 0.04s ease-in-out;
+  transition: opacity 0.3s ease-in-out, text-shadow 0.3s ease-in-out; /* Increased transition duration */
   font-weight: 700;
 }
 .Logo:hover {
@@ -11,45 +12,34 @@
   width: fit-content;
 }
 
+/* Navbar active state with smooth transition */
+.navbar.active {
+  background: rgba(255, 255, 255, 0);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.1px);
+  -webkit-backdrop-filter: blur(9.1px);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease,
+    backdrop-filter 0.3s ease;
+}
+
+/* Flip effect on hover for About link */
 .Flip {
   font-family: 'Hubot-Sans', sans-serif;
   font-weight: 700;
-  position: relative;
-  display: inline-block;
-  padding: 0;
-  transition: transform 0.3s;
-  transform-origin: 50% 0;
-  transform-style: preserve-3d;
   opacity: 0.5;
   font-size: 1.5em;
 }
-.Flip:before {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  content: 'About';
-  transition: color 0.3s;
-  transform: rotateX(-90deg);
-  transform-origin: 50% 0;
-  text-align: center;
-}
 
-.Flip:hover,
-.Flip:focus {
-  transform: rotateX(90deg) translateY(-22px);
+.Flip:hover {
   opacity: 1;
   text-shadow: 0 2px 16px rgba(174, 207, 242, 0.6);
 }
 
 @media screen and (min-width: 765px) {
   .Logo {
-    font-weight: 700;
     font-size: 1em;
   }
   .Flip {
-    font-weight: 700;
     font-size: 1em;
   }
 }
