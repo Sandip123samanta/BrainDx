@@ -74,8 +74,8 @@ function Uploader() {
       setExplanation(data.prediction);
       console.log('Upload completed');
     } catch (error) {
-      alert('There was an error with your request.');
       console.log('Upload error:', error);
+      alert('There was an error with your request.');
     }
   };
 
