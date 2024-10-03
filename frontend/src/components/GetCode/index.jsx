@@ -13,7 +13,7 @@ function GetCode() {
     offset: ['start end', 'end end'],
   });
 
-  const rotateX = useTransform(scrollYProgress, [0, 1], [15, 0]);
+  const rotateX = useTransform(scrollYProgress, [0, 1], [30, 0]);
   const opacity = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
   return (
     <div className="text-white w-screen h-auto pt-[7em] bg-gradient-to-b from-transparent to-black">
