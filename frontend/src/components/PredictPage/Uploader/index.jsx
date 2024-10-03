@@ -3,20 +3,30 @@ import { LuUploadCloud } from 'react-icons/lu';
 import { FaFileImage } from 'react-icons/fa';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import TextFollow from '../../Ui/TextFollow';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
 import './style.css';
+import PredictionCard from '../UploadComponent/PredictionCard';
+import SkeletonLoder from '../UploadComponent/SkeletonLoder';
+import { FaLongArrowAltRight } from 'react-icons/fa';
+import LimeExplainerCard from '../UploadComponent/LimeExplainerCard';
 
 function Uploader() {
   const [file, setFile] = useState(null);
   const [filePreview, setFilePreview] = useState(null);
   const [explanation, setExplanation] = useState('');
   const [dragging, setDragging] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [prediction, setPrediction] = useState(null);
+  const [cancelTokenSource, setCancelTokenSource] = useState(null);
+  const [limeImage, setLimeImage] = useState(null);
   const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
     setFilePreview(URL.createObjectURL(selectedFile));
+    clearPrediction();
+    setLimeImage(null);
     console.log('File selected:', selectedFile);
   };
 
@@ -37,6 +47,8 @@ function Uploader() {
       const droppedFile = e.dataTransfer.files[0];
       setFile(droppedFile);
       setFilePreview(URL.createObjectURL(droppedFile));
+      clearPrediction();
+      setLimeImage(null);
       e.dataTransfer.clearData();
       console.log('File dropped:', droppedFile);
     }
@@ -49,6 +61,8 @@ function Uploader() {
   const handleDelete = () => {
     setFile(null);
     setFilePreview(null);
+    clearPrediction();
+    setLimeImage(null);
     console.log('File deleted');
   };
 
@@ -58,24 +72,65 @@ function Uploader() {
 
     const formData = new FormData();
     formData.append('file', file);
+    clearPrediction();
+    setLimeImage(null);
+    const source = axios.CancelToken.source();
+    setCancelTokenSource(source);
 
+    setLoading(true);
     try {
       const response = await axios.post(
-        import.meta.env.VITE_API_URL,
+        `${import.meta.env.VITE_API_URL}/predict`,
         formData,
         {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
+          cancelToken: source.token,
         }
       );
 
       const data = response.data;
-      setExplanation(data.prediction);
+      setExplanation(data.explanation);
+      setPrediction(data.prediction);
+      setLoading(false);
       console.log('Upload completed');
     } catch (error) {
-      console.log('Upload error:', error);
-      alert('There was an error with your request.');
+      if (axios.isCancel(error)) {
+        console.log('Request canceled:', error.message);
+      } else {
+        console.log('Upload error:', error);
+        alert('There was an error with your request.');
+      }
+      setLoading(false);
+    }
+  };
+
+  const clearPrediction = () => {
+    setExplanation('');
+    setPrediction(null);
+  };
+
+  const handleCancel = () => {
+    if (cancelTokenSource) {
+      cancelTokenSource.cancel('User canceled the request');
+      setLoading(false);
+    }
+  };
+
+  const fetchLimeImage = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/tmp/explanation.png`,
+        {
+          responseType: 'blob',
+        }
+      );
+      const url = URL.createObjectURL(response.data);
+      setLimeImage(url);
+    } catch (error) {
+      console.log('Error fetching LIME image:', error);
+      alert('Could not fetch LIME explanation image.');
     }
   };
 
@@ -143,21 +198,56 @@ function Uploader() {
         </div>
       )}
 
-      {file && (
+      {prediction && (
+        <div className="mt-5 flex flex-col items-center">
+          <PredictionCard
+            prediction={prediction}
+            explanation={explanation}
+            subImage={filePreview}
+            uploadedFile={file}
+          />
+
+          <p className="max-w-[65%] mb-5">
+            want to know how the model is predicting, on the basis of of which
+            feature of the mri image?{' '}
+            <span
+              onClick={fetchLimeImage}
+              className="cursor-pointer text-blue-300 flex gap-1 hover:gap-3 items-center transition-all duration-300"
+            >
+              Learn more
+              <FaLongArrowAltRight />
+            </span>
+          </p>
+        </div>
+      )}
+
+      {file && !loading && !prediction && (
         <button
           type="submit"
           onClick={handleSubmit}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5"
+          className="git mt-5 mb-5"
+          disabled={loading}
         >
-          Get Prediction
+          <span className="glow"></span>
+          <span className="git-content">Get Prediction</span>
         </button>
       )}
 
-      {explanation && (
+      {loading && (
         <div className="mt-5">
-          <h2 className="text-white font-bold">Prediction: {explanation}</h2>
+          <div className="loader mt-2">
+            <SkeletonLoder />
+          </div>
+          <div className="mt-5 text-center mb-5">
+            <button className="git" onClick={handleCancel}>
+              <span className="glow"></span>
+              <span className="git-content">Cancel Prediction</span>
+            </button>
+          </div>
         </div>
       )}
+
+      {limeImage && <LimeExplainerCard limeImage={limeImage} />}
     </div>
   );
 }

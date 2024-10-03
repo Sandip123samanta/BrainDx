@@ -93,7 +93,7 @@ function AboutSetup() {
                 />
               </div>
             </div>
-            <div className="step5 md:pl-10 pl-0">
+            <div className="step5 md:px-10 px-0">
               <div className="flex flex-col gap-3">
                 <StepNo step={'Step 5'} />
                 <h1 className="aboutsetup-herotext font-semibold text-xl">
