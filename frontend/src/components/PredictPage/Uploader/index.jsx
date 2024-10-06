@@ -79,16 +79,16 @@ function Uploader() {
 
     setLoading(true);
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/predict`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-          cancelToken: source.token,
-        }
-      );
+      const apiUrl = import.meta.env.VITE_API_URL.endsWith('/predict')
+        ? import.meta.env.VITE_API_URL
+        : `${import.meta.env.VITE_API_URL}/predict`;
+
+      const response = await axios.post(apiUrl, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        cancelToken: source.token,
+      });
 
       const data = response.data;
       setExplanation(data.explanation);
@@ -241,7 +241,7 @@ function Uploader() {
           <div className="mt-5 text-center mb-5">
             <button className="git" onClick={handleCancel}>
               <span className="glow"></span>
-              <span className="git-content">Cancel Prediction</span>
+              <span className="git-content">Cancel</span>
             </button>
           </div>
         </div>

@@ -93,8 +93,8 @@ function AboutSetup() {
                 />
               </div>
             </div>
-            <div className="step5 md:px-10 px-0">
-              <div className="flex flex-col gap-3">
+            <div className="step5 md:w-full md:flex md:justify-center">
+              <div className="flex flex-col gap-3 md:max-w-[45%]">
                 <StepNo step={'Step 5'} />
                 <h1 className="aboutsetup-herotext font-semibold text-xl">
                   Docker Setup(Optional)
