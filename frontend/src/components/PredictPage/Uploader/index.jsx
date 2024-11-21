@@ -75,6 +75,8 @@ function Uploader() {
     console.log('File deleted');
   };
 
+  const VITE_API_URL = 'http://3.234.245.75:8080';
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!file) return;
@@ -89,9 +91,7 @@ function Uploader() {
 
     setLoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL.endsWith('/predict')
-        ? import.meta.env.VITE_API_URL
-        : `${import.meta.env.VITE_API_URL}/predict`;
+      const apiUrl = `${VITE_API_URL}/predict`;
 
       const response = await axios.post(apiUrl, formData, {
         headers: {
@@ -131,12 +131,9 @@ function Uploader() {
 
   const fetchLimeImage = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/tmp/explanation.png`,
-        {
-          responseType: 'blob',
-        }
-      );
+      const response = await axios.get(`${VITE_API_URL}/tmp/explanation.png`, {
+        responseType: 'blob',
+      });
       const url = URL.createObjectURL(response.data);
       setLimeImage(url);
     } catch (error) {
