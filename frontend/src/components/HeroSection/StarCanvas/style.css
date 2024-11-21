@@ -1,0 +1,9 @@
+#particleCanvas {
+  position: fixed;
+  pointer-events: none;
+  animation: load 0.4s ease-in-out forwards;
+  z-index: 1;
+  width: 100%;
+  top: 0;
+  left: 0;
+}

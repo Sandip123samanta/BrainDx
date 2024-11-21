@@ -1,0 +1,8 @@
+.high_text {
+  color: #d8ecf8;
+  text-shadow: 0 2px 16px rgba(174, 207, 242, 0.24);
+  background: linear-gradient(0deg, #d8ecf8 0, #98c0ef 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

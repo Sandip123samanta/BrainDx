@@ -1,0 +1,45 @@
+/* Logo Styling */
+.Logo {
+  font-family: 'Hubot-Sans', sans-serif;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out, text-shadow 0.3s ease-in-out; /* Increased transition duration */
+  font-weight: 700;
+}
+.Logo:hover {
+  opacity: 1;
+  text-shadow: 0 2px 16px rgba(174, 207, 242, 0.6);
+  width: fit-content;
+}
+
+/* Navbar active state with smooth transition */
+.navbar.active {
+  background: rgba(255, 255, 255, 0);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.1px);
+  -webkit-backdrop-filter: blur(9.1px);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease,
+    backdrop-filter 0.3s ease;
+}
+
+/* Flip effect on hover for About link */
+.Flip {
+  font-family: 'Hubot-Sans', sans-serif;
+  font-weight: 700;
+  opacity: 0.5;
+  font-size: 1.5em;
+}
+
+.Flip:hover {
+  opacity: 1;
+  text-shadow: 0 2px 16px rgba(174, 207, 242, 0.6);
+}
+
+@media screen and (min-width: 765px) {
+  .Logo {
+    font-size: 1em;
+  }
+  .Flip {
+    font-size: 1em;
+  }
+}
