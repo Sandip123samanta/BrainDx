@@ -75,7 +75,7 @@ function Uploader() {
     console.log('File deleted');
   };
 
-  const VITE_API_URL = 'https://3.234.245.75:8080';
+  const VITE_API_URL = 'http://3.234.245.75:8080';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
